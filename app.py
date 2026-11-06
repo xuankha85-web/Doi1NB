@@ -1,22 +1,11 @@
 import streamlit as st
 import pandas as pd
 
-# =========================================================================
-# 1. THÔNG SỐ KẾT NỐI FILE GOOGLE SHEETS THỰC TẾ CỦA BẠN
-# =========================================================================
-# =========================================================================
-# 1. ĐÃ CHUẨN HÓA LẠI ĐƯỜNG LINK KHÔNG CÒN BỊ LỖI CHỮ GOOGLE.COM
-# =========================================================================
-SHEET_ID = "10klaLC9naS_C4cMJrVZTn2Gr777vcc3K1Rbk_fvdE0w"
-SHEET_NAME = "Form_Responses"
-
-# Đường link API xuất dữ liệu bắt buộc phải có chữ "docs." chuẩn ở đầu dòng
-URL_DOC = f"https://google.com{SHEET_ID}/export?format=csv&gid=2024513485"
-
-
-
 st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
 st.title("📱 Hệ Thống Nhập Liệu & Tra Cứu PC09")
+
+# Đường link tĩnh xuất dữ liệu trực tiếp dạng thô CSV từ file Google Sheets của bạn
+URL_DOC = "https://google.com"
 
 DANH_SACH_CAN_BO = [
     "Bùi Văn Thiên", "Phạm Minh Cường", "Đỗ Duy Hoà", "Đoàn Văn Đạt", "Nguyễn Xuân Kha", 
@@ -30,22 +19,16 @@ DANH_SACH_CAN_BO = [
 ]
 
 # =========================================================================
-# 2. CHỨC NĂNG TRA CỨU DỮ LIỆU ĐANG CÓ
-# =========================================================================
-# =========================================================================
-# 2. CHỨC NĂNG TRA CỨU DỮ LIỆU (ĐÃ BỔ SUNG LỆNH TỰ ĐỘNG DỌN DẸP CỘT TRỐNG)
+# 2. CHỨC NĂNG TRA CỨU DỮ LIỆU
 # =========================================================================
 st.markdown("---")
 st.subheader("🔍 Tra Cứu Vụ Việc")
 
 try:
-    # Đọc dữ liệu từ đường link API của bạn
     df = pd.read_csv(URL_DOC)
-    
-    # LỆNH THÔNG MINH: Tự động xóa bỏ toàn bộ các cột trống hoặc hàng trống bị thừa trong file Excel
-    df = df.dropna(how='all') # Xóa hàng trống
-    df = df.loc[:, ~df.columns.str.contains('^Unnamed')] # Xóa cột không có tiêu đề
-    df = df.fillna("") # Thay thế các ô trống bằng khoảng trắng để tránh lỗi hiển thị
+    df = df.dropna(how='all')
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    df = df.fillna("")
     
     tu_khoa = st.text_input("Nhập thông tin cần tìm (Tên cán bộ, Địa bàn, Tên vụ...):")
     
@@ -58,11 +41,10 @@ try:
         st.dataframe(df.tail(5))
 
 except Exception as e:
-    # Đoạn này giúp bạn nhìn thấy chính xác mã lỗi hệ thống thay vì dòng báo chung chung cũ
-    st.error(f"Lỗi kết nối cấu trúc bảng tính: {e}. Bạn hãy kiểm tra lại file code trên GitHub.")
+    st.error(f"Lỗi hệ thống: {e}")
 
 # =========================================================================
-# 3. BIỂU MẪU NHẬP LIỆU GHI TRỰC TIẾP VÀO EXCEL TRÊN MẠNG
+# 3. BIỂU MẪU NHẬP LIỆU
 # =========================================================================
 st.markdown("---")
 st.subheader("➕ Cập Nhật Vụ Việc Mới")
@@ -99,29 +81,23 @@ with st.form("form_nhap_lieu", clear_on_submit=True):
                 import gspread
                 from google.oauth2.service_account import Credentials
                 
-                # Gọi mã khóa bảo mật gcp_service_account từ mục Secrets của Streamlit Cloud
                 scope = ["https://google.com", "https://googleapis.com"]
                 creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=scope)
                 client = gspread.authorize(creds)
                 
-                # Mở tệp Google Sheets và chọn tab Form_Responses của bạn
-                sheet = client.open_by_key(SHEET_ID).worksheet(SHEET_NAME)
+                sheet = client.open_by_key("110klaLC9naS_C4cMJrVZTn2Gr777vcc3K1Rbk_fvdE0w").worksheet("Form_Responses")
                 chuoi_can_bo = ", ".join(can_bo_chon)
                 
-                # Tự động tính toán Số thứ tự (STT) tiếp theo dựa trên số dòng hiện tại
                 stt_moi = len(df) + 1
-                
-                # Đóng gói dữ liệu chèn vừa khít vào các cột từ A đến O trong file của bạn
                 row_to_append = [
                     stt_moi, "", dia_ban, ngay_kn, noi_xay_ra, ten_vu, 
                     co_quan_yeu_cau, hoat_dong, tinh_chat, tinh_trang_ht, 
                     noi_dung_tom_tat, ket_qua_kn, dau_vet, nhan_dinh, chuoi_can_bo
                 ]
                 
-                # Lệnh đẩy dòng mới trực tiếp vào cuối bảng tính Google Sheets
                 sheet.append_row(row_to_append)
-                st.success(f"🎉 Đã chèn thành công vụ việc '{ten_vu}' vào dòng cuối file Excel!")
-                st.rerun() # Tải lại ứng dụng để cập nhật hiển thị ngay lên bảng tra cứu phía trên
+                st.success(f"🎉 Đã chèn thành công vụ việc '{ten_vu}' vào file Excel!")
+                st.rerun()
                 
             except Exception as err:
-                st.error(f"Lỗi phân quyền hệ thống: {err}. Hãy chắc chắn bạn đã dán file khóa JSON vào mục Secrets của Streamlit Cloud nhé.")
+                st.error(f"Lỗi kết nối ghi file: {err}")
