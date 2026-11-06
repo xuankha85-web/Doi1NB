@@ -12,6 +12,7 @@ SHEET_NAME = "Form_Responses" # Đảm bảo viết đúng chữ Form_Responses 
 URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&gid=303745914"
 
 
+
 st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
 st.title("📱 Hệ Thống Nhập Liệu & Tra Cứu PC09")
 
