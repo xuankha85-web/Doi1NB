@@ -2,21 +2,19 @@ import streamlit as st
 import pandas as pd
 
 # =========================================================================
-# ĐÃ CẬP NHẬT CHÍNH XÁC TÊN TAB DỮ LIỆU TỪ ẢNH CỦA BẠN
+# 1. CONFIG GOOGLE SHEETS CONNECTION
 # =========================================================================
 SHEET_ID = "1V0lLtw90ZuqM9NoHWGiLCt7izWNQiFfLZ_fssQjQuik" 
-SHEET_NAME = "Form_Responses" # Tên tab màu tím chứa dữ liệu của bạn
+SHEET_NAME = "Form_Responses" 
 
-# Đường link đọc dữ liệu công khai trực tiếp từ Google Sheets
 URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME}"
 
-st.set_page_config(page_title="Hệ Thống Quản Lý PC09", layout="centered", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
 st.title("📱 Hệ Thống Nhập Liệu & Tra Cứu PC09")
 
-# DANH SÁCH CÁN BỘ ĐƯỢC TÍCH HỢP SẴN
 DANH_SACH_CAN_BO = [
     "Bùi Văn Thiên", "Phạm Minh Cường", "Đỗ Duy Hoà", "Đoàn Văn Đạt", "Nguyễn Xuân Kha", 
-    "Trần Đăng Dũng", "Nguyễn Văn Khang", "Trịnh Huy Hảo", "Bùi Xuân Mạnh", "Trần Đăng Dũng", 
+    "Trần Đăng Dũng", "Nguyễn Văn Khang", "Trịnh Huy Hảo", "Bùi Xuân Mạnh", 
     "Trịnh Văn Đường", "Vũ Thanh Tùng", "Lê Ngọc Lâm", "Phạm Như Quý", "Nguyễn Văn Quy", 
     "Trần Văn Hưng", "Đoàn Văn Dự", "Nguyễn Xuân Hưng", "Nguyễn Xuân Tiến", "Phạm Hồng Nam", 
     "Hoàng Anh Cường", "Nguyễn Duy Hưng", "Đỗ Ngọc Linh", "Nguyễn Văn Cảnh", "Đoàn Văn Tuyên", 
@@ -25,14 +23,13 @@ DANH_SACH_CAN_BO = [
 ]
 
 # =========================================================================
-# 2. CHỨC NĂNG TRA CỨU DỮ LIỆU
+# 2. SEARCH DATA FUNCTION
 # =========================================================================
 st.markdown("---")
 st.subheader("🔍 Tra Cứu Vụ Việc")
 
 try:
     df = pd.read_csv(URL_DOC)
-    # Loại bỏ các cột trống không tên nếu có
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     
     tu_khoa = st.text_input("Nhập thông tin cần tìm (Tên cán bộ, Địa bàn, Tên vụ...):")
@@ -49,7 +46,7 @@ except Exception as e:
     st.error("Chưa kết nối được dữ liệu. Vui lòng kiểm tra lại quyền chia sẻ file Google Sheets.")
 
 # =========================================================================
-# 3. CHỨC NĂNG NHẬP LIỆU VỤ VIỆC MỚI
+# 3. INPUT DATA FORM
 # =========================================================================
 st.markdown("---")
 st.subheader("➕ Cập Nhật Vụ Việc Mới")
@@ -74,7 +71,6 @@ with st.form("form_nhap_lieu", clear_on_submit=True):
     dau_vet = st.text_input("10. Dấu vết, tài liệu thu được:")
     nhan_dinh = st.text_input("Nhận định đánh giá:")
     
-    # Chọn nhiều cán bộ cùng lúc trong danh sách có sẵn
     can_bo_chon = st.multiselect("Cán bộ khám nghiệm:", DANH_SACH_CAN_BO)
 
     submit_btn = st.form_submit_button("🚀 LƯU VÀO FILE EXCEL")
@@ -92,11 +88,8 @@ with st.form("form_nhap_lieu", clear_on_submit=True):
                 client = gspread.authorize(creds)
                 
                 sheet = client.open_by_key(SHEET_ID).worksheet(SHEET_NAME)
-                
-                # Chuyển mảng cán bộ được chọn thành chuỗi dạng "Cán bộ A, Cán bộ B"
                 chuoi_can_bo = ", ".join(can_bo_chon)
                 
-                # Sắp xếp đúng thứ tự 15 cột tương ứng với file Google Sheets của bạn
                 stt_moi = len(df) + 1
                 row_to_append = [
                     stt_moi, "", dia_ban, ngay_kn, noi_xay_ra, ten_vu, 
