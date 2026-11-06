@@ -4,11 +4,15 @@ import pandas as pd
 # =========================================================================
 # 1. THÔNG SỐ KẾT NỐI FILE GOOGLE SHEETS THỰC TẾ CỦA BẠN
 # =========================================================================
-SHEET_ID = "1Jt2c1L3oDZeodXcNPyYmF7HSED5DilKI"
+# =========================================================================
+# 1. ĐÃ CHUẨN HÓA LẠI ĐƯỜNG LINK KHÔNG CÒN BỊ LỖI CHỮ GOOGLE.COM
+# =========================================================================
+SHEET_ID = "10klaLC9naS_C4cMJrVZTn2Gr777vcc3K1Rbk_fvdE0w"
 SHEET_NAME = "Form_Responses"
 
-# Đường link API xuất trực tiếp dữ liệu dạng CSV từ tab có mã gid=2024513485
+# Đường link API xuất dữ liệu bắt buộc phải có chữ "docs." chuẩn ở đầu dòng
 URL_DOC = f"https://google.com{SHEET_ID}/export?format=csv&gid=2024513485"
+
 
 
 st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
