@@ -8,7 +8,8 @@ SHEET_ID = "1V0lLtw90ZuqM9NoHWGiLCt7izWNQiFfLZ_fssQjQuik"
 SHEET_NAME = "Form_Responses" 
 
 # Xóa dòng URL_DOC cũ đi và thay thế chính xác bằng dòng này:
-URL_DOC = f"https://google.com{SHEET_ID}/export?format=csv&gid=1720202120"
+# Hãy thay thế dòng số 9 (hoặc dòng URL_DOC) cũ trong file app.py bằng dòng chuẩn này:
+URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&gid=1720202120"
 
 
 st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
