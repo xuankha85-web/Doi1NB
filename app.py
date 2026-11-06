@@ -7,7 +7,9 @@ import pandas as pd
 SHEET_ID = "1V0lLtw90ZuqM9NoHWGiLCt7izWNQiFfLZ_fssQjQuik" 
 SHEET_NAME = "Form_Responses" 
 
-URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME}"
+# Xóa dòng URL_DOC cũ đi và thay thế chính xác bằng dòng này:
+URL_DOC = f"https://google.com{SHEET_ID}/export?format=csv&gid=1720202120"
+
 
 st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
 st.title("📱 Hệ Thống Nhập Liệu & Tra Cứu PC09")
