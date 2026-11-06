@@ -4,7 +4,7 @@ import pandas as pd
 st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
 st.title("📱 Hệ Thống Nhập Liệu & Tra Cứu PC09")
 
-# 1. Đường link tĩnh đọc dữ liệu (Đã đưa ID về chuẩn gốc 10klaLC)
+# 1. Đường link tĩnh đọc dữ liệu (Chuẩn mã ID file gốc)
 URL_DOC = "https://google.com"
 
 DANH_SACH_CAN_BO = [
@@ -44,7 +44,7 @@ except Exception as e:
     st.error(f"Lỗi hệ thống hiển thị bảng: {e}")
 
 # =========================================================================
-# 3. BIỂU MẪU NHẬP LIỆU (Đã đồng bộ chuẩn lề và cấu hình try/except)
+# 3. BIỂU MẪU NHẬP LIỆU (Đã sửa chữ hoa Form_Responses đồng bộ file Excel)
 # =========================================================================
 st.markdown("---")
 st.subheader("➕ Cập Nhật Vụ Việc Mới")
@@ -85,8 +85,8 @@ with st.form("form_nhap_lieu", clear_on_submit=True):
                 creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=scope)
                 client = gspread.authorize(creds)
                 
-                # Mở bằng ID gốc chuẩn hóa 10klaLC và trỏ vào tab form_responses viết thường
-                sheet = client.open_by_key("10klaLC9naS_C4cMJrVZTn2Gr777vcc3K1Rbk_fvdE0w").worksheet("form_responses")
+                # ĐÃ ĐỒNG BỘ CHỮ HOA CHUẨN XÁC: "Form_Responses"
+                sheet = client.open_by_key("10klaLC9naS_C4cMJrVZTn2Gr777vcc3K1Rbk_fvdE0w").worksheet("Form_Responses")
                 chuoi_can_bo = ", ".join(can_bo_chon)
                 
                 stt_moi = len(df) + 1
