@@ -2,20 +2,17 @@ import streamlit as st
 import pandas as pd
 
 # =========================================================================
-# 1. CONFIG GOOGLE SHEETS CONNECTION
+# ĐÃ CẬP NHẬT CHÍNH XÁC ID VÀ GID TỪ ẢNH TRÌNH DUYỆT CỦA BẠN
 # =========================================================================
-# CẬP NHẬT CHÍNH XÁC TÊN TAB VIẾT THƯỜNG THEO FILE CỦA BẠN
 SHEET_ID = "10klaIC9naS_c4cMjvVTzn2Gr777vcc3K1Rbk_fvcl0w"
-SHEET_NAME = "Form_Responses" # Đảm bảo viết đúng chữ Form_Responses hoặc form_responses tùy theo tab tím
+SHEET_NAME = "Form_Responses"
 
-# Đường link kết nối API đồng bộ theo mã số tab GID 303745914 từ ảnh của bạn
-URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&gid=1720202120"
-
-
-
+# Đường link API xuất trực tiếp dữ liệu dạng CSV từ tab có mã gid=303745914
+URL_DOC = f"https://google.com{SHEET_ID}/export?format=csv&gid=303745914"
 
 st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
 st.title("📱 Hệ Thống Nhập Liệu & Tra Cứu PC09")
+
 
 DANH_SACH_CAN_BO = [
     "Bùi Văn Thiên", "Phạm Minh Cường", "Đỗ Duy Hoà", "Đoàn Văn Đạt", "Nguyễn Xuân Kha", 
