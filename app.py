@@ -9,7 +9,8 @@ SHEET_ID = "10klaIC9naS_c4cMjvVTzn2Gr777vcc3K1Rbk_fvcl0w"
 SHEET_NAME = "Form_Responses" # Đảm bảo viết đúng chữ Form_Responses hoặc form_responses tùy theo tab tím
 
 # Đường link kết nối API đồng bộ theo mã số tab GID 303745914 từ ảnh của bạn
-URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&gid=303745914"
+URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&gid=1720202120"
+
 
 
 
