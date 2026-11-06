@@ -8,7 +8,8 @@ SHEET_ID = "1Jt2c1L3oDZeodXcNPyYmF7HSED5DilKI"
 SHEET_NAME = "Form_Responses"
 
 # Đường link kết nối API đồng bộ theo mã số tab dữ liệu mới gid=2024513485
-URL_DOC = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&gid=2024513485"
+URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&gid=2024513485"
+
 
 st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
 st.title("📱 Hệ Thống Nhập Liệu & Tra Cứu PC09")
