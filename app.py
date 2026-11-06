@@ -28,12 +28,20 @@ DANH_SACH_CAN_BO = [
 # =========================================================================
 # 2. CHỨC NĂNG TRA CỨU DỮ LIỆU ĐANG CÓ
 # =========================================================================
+# =========================================================================
+# 2. CHỨC NĂNG TRA CỨU DỮ LIỆU (ĐÃ BỔ SUNG LỆNH TỰ ĐỘNG DỌN DẸP CỘT TRỐNG)
+# =========================================================================
 st.markdown("---")
 st.subheader("🔍 Tra Cứu Vụ Việc")
 
 try:
+    # Đọc dữ liệu từ đường link API của bạn
     df = pd.read_csv(URL_DOC)
-    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    
+    # LỆNH THÔNG MINH: Tự động xóa bỏ toàn bộ các cột trống hoặc hàng trống bị thừa trong file Excel
+    df = df.dropna(how='all') # Xóa hàng trống
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')] # Xóa cột không có tiêu đề
+    df = df.fillna("") # Thay thế các ô trống bằng khoảng trắng để tránh lỗi hiển thị
     
     tu_khoa = st.text_input("Nhập thông tin cần tìm (Tên cán bộ, Địa bàn, Tên vụ...):")
     
@@ -46,7 +54,8 @@ try:
         st.dataframe(df.tail(5))
 
 except Exception as e:
-    st.error("Chưa kết nối được dữ liệu để tra cứu. Hãy kiểm tra lại file code trên GitHub.")
+    # Đoạn này giúp bạn nhìn thấy chính xác mã lỗi hệ thống thay vì dòng báo chung chung cũ
+    st.error(f"Lỗi kết nối cấu trúc bảng tính: {e}. Bạn hãy kiểm tra lại file code trên GitHub.")
 
 # =========================================================================
 # 3. BIỂU MẪU NHẬP LIỆU GHI TRỰC TIẾP VÀO EXCEL TRÊN MẠNG
