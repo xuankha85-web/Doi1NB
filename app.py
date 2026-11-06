@@ -8,7 +8,8 @@ SHEET_ID = "1Jt2c1L3oDZeodXcNPyYmF7HSED5DilKI"
 SHEET_NAME = "Form_Responses"
 
 # Đường link API xuất trực tiếp dữ liệu dạng CSV từ tab có mã gid=2024513485
-URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&gid=2024513485"
+URL_DOC = f"https://google.com{SHEET_ID}/export?format=csv&gid=2024513485"
+
 
 st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
 st.title("📱 Hệ Thống Nhập Liệu & Tra Cứu PC09")
