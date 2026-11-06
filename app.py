@@ -4,7 +4,7 @@ import pandas as pd
 st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
 st.title("📱 Hệ Thống Nhập Liệu & Tra Cứu PC09")
 
-# Đường link tĩnh xuất dữ liệu trực tiếp dạng thô CSV từ file Google Sheets của bạn
+# 1. Đường link tĩnh đọc dữ liệu (Đã đưa ID về chuẩn gốc 10klaLC)
 URL_DOC = "https://google.com"
 
 DANH_SACH_CAN_BO = [
@@ -41,10 +41,10 @@ try:
         st.dataframe(df.tail(5))
 
 except Exception as e:
-    st.error(f"Lỗi hệ thống: {e}")
+    st.error(f"Lỗi hệ thống hiển thị bảng: {e}")
 
 # =========================================================================
-# 3. BIỂU MẪU NHẬP LIỆU
+# 3. BIỂU MẪU NHẬP LIỆU (Đã đồng bộ chuẩn lề và cấu hình try/except)
 # =========================================================================
 st.markdown("---")
 st.subheader("➕ Cập Nhật Vụ Việc Mới")
@@ -85,9 +85,8 @@ with st.form("form_nhap_lieu", clear_on_submit=True):
                 creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=scope)
                 client = gspread.authorize(creds)
                 
-               # Sửa lại chữ trong ngoặc thành "form_responses" viết thường
-sheet = client.open_by_key("110klaLC9naS_C4cMJrVZTn2Gr777vcc3K1Rbk_fvdE0w").worksheet("form_responses")
-
+                # Mở bằng ID gốc chuẩn hóa 10klaLC và trỏ vào tab form_responses viết thường
+                sheet = client.open_by_key("10klaLC9naS_C4cMJrVZTn2Gr777vcc3K1Rbk_fvdE0w").worksheet("form_responses")
                 chuoi_can_bo = ", ".join(can_bo_chon)
                 
                 stt_moi = len(df) + 1
@@ -102,4 +101,4 @@ sheet = client.open_by_key("110klaLC9naS_C4cMJrVZTn2Gr777vcc3K1Rbk_fvdE0w").work
                 st.rerun()
                 
             except Exception as err:
-                st.error(f"Lỗi kết nối ghi file: {err}")
+                st.error(f"Lỗi ghi dữ liệu vào bảng tính: {err}")
