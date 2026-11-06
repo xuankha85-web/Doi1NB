@@ -85,7 +85,9 @@ with st.form("form_nhap_lieu", clear_on_submit=True):
                 creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=scope)
                 client = gspread.authorize(creds)
                 
-                sheet = client.open_by_key("110klaLC9naS_C4cMJrVZTn2Gr777vcc3K1Rbk_fvdE0w").worksheet("Form_Responses")
+               # Sửa lại chữ trong ngoặc thành "form_responses" viết thường
+sheet = client.open_by_key("110klaLC9naS_C4cMJrVZTn2Gr777vcc3K1Rbk_fvdE0w").worksheet("form_responses")
+
                 chuoi_can_bo = ", ".join(can_bo_chon)
                 
                 stt_moi = len(df) + 1
