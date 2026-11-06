@@ -2,11 +2,12 @@ import streamlit as st
 import pandas as pd
 
 # =========================================================================
-# 1. CẤU HÌNH THÔNG TIN FILE GOOGLE SHEETS (ĐÃ TRÍCH XUẤT TỪ ẢNH CỦA BẠN)
+# ĐÃ CẬP NHẬT CHÍNH XÁC TÊN TAB DỮ LIỆU TỪ ẢNH CỦA BẠN
 # =========================================================================
 SHEET_ID = "1V0lLtw90ZuqM9NoHWGiLCt7izWNQiFfLZ_fssQjQuik" 
-SHEET_NAME = "2025" 
+SHEET_NAME = "Form_Responses" # Tên tab màu tím chứa dữ liệu của bạn
 
+# Đường link đọc dữ liệu công khai trực tiếp từ Google Sheets
 URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME}"
 
 st.set_page_config(page_title="Hệ Thống Quản Lý PC09", layout="centered", initial_sidebar_state="collapsed")
