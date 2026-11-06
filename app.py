@@ -4,12 +4,12 @@ import pandas as pd
 # =========================================================================
 # 1. CONFIG GOOGLE SHEETS CONNECTION
 # =========================================================================
-SHEET_ID = "1V0lLtw90ZuqM9NoHWGiLCt7izWNQiFfLZ_fssQjQuik" 
-SHEET_NAME = "Form_Responses" 
+# CẬP NHẬT CHÍNH XÁC TÊN TAB VIẾT THƯỜNG THEO FILE CỦA BẠN
+SHEET_ID = "10klaIC9naS_c4cMjvVTzn2Gr777vcc3K1Rbk_fvcl0w"
+SHEET_NAME = "Form_Responses" # Đảm bảo viết đúng chữ Form_Responses hoặc form_responses tùy theo tab tím
 
-# Xóa dòng URL_DOC cũ đi và thay thế chính xác bằng dòng này:
-# Hãy thay thế dòng số 9 (hoặc dòng URL_DOC) cũ trong file app.py bằng dòng chuẩn này:
-URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&gid=1720202120"
+# Đường link kết nối API đồng bộ theo mã số tab GID 303745914 từ ảnh của bạn
+URL_DOC = f"https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&gid=303745914"
 
 
 st.set_page_config(page_title="He Thong Quan Ly PC09", layout="centered", initial_sidebar_state="collapsed")
