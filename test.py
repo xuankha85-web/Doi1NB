@@ -3,7 +3,9 @@ import streamlit as st
 import pandas as pd
 
 # 1. ĐƯỜNG LINK FILE TEST1 CỦA BẠN ĐÃ ĐƯỢC CHUẨN HÓA CẤU TRÚC ĐỌC FILE
-URL_DATA = "https://google.com"
+# Sửa lại chính xác dòng link ở đầu file thành dòng này:
+URL_DOC = "https://google.com"
+
 
 st.set_page_config(page_title="App Thu Nghiem", layout="centered")
 st.title("📱 Ứng Dụng Thử Nghiệm Đơn Giản")
